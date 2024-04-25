@@ -52,7 +52,8 @@ const initialValues = {
 
 export function RequestForm() {
   const formikRef = useRef(null);
-  const [isUploading, setIsUploading] = useState(false); // State variable to track uploading status
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [organizations, setOrganizations] = useState([]);
 
   useEffect(() => {
@@ -78,6 +79,15 @@ export function RequestForm() {
   const handleFileSelect = async (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
+
+    if (file) {
+      // Check if the selected file type is either image or pdf
+      if (file.type.includes("image") || file.type === "application/pdf") {
+        setSelectedFile(file);
+      } else {
+        alert("Please select an image or a PDF file.");
+      }
+    }
 
     reader.onload = function (event) {
       const base64EncodedString = event.target.result.split(",")[1];
@@ -272,8 +282,8 @@ export function RequestForm() {
                     style={{ display: "none" }}
                     onChange={handleFileSelect}
                   />
-                  {isUploading && <CircularProgress />}{" "}
-                  {/* Render upload animation when uploading */}
+                  {selectedFile && <p>Selected File: {selectedFile.name}</p>}
+                  {isUploading && <CircularProgress />} {/* Render upload animation when uploading */}
                 </Grid>
                 <Grid
                   item

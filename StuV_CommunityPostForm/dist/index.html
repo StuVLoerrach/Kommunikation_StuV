@@ -27200,9 +27200,11 @@ $RefreshReg$(_c, "App");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RequestForm", ()=>(0, _form.RequestForm));
+parcelHelpers.export(exports, "FileUploader", ()=>(0, _fileUploader.FileUploader));
 var _form = require("./Form");
+var _fileUploader = require("./FileUploader");
 
-},{"./Form":"ep7Rn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ep7Rn":[function(require,module,exports) {
+},{"./Form":"ep7Rn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./FileUploader":"9IHhW"}],"ep7Rn":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3d43 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27251,7 +27253,8 @@ const initialValues = {
 function RequestForm() {
     _s();
     const formikRef = (0, _react.useRef)(null);
-    const [isUploading, setIsUploading] = (0, _react.useState)(false); // State variable to track uploading status
+    const [selectedFile, setSelectedFile] = (0, _react.useState)(null);
+    const [isUploading, setIsUploading] = (0, _react.useState)(false);
     const [organizations, setOrganizations] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
         // Fetch the list of partners from the Google Apps Script endpoint
@@ -27269,6 +27272,11 @@ function RequestForm() {
     const handleFileSelect = async (event)=>{
         const file = event.target.files[0];
         const reader = new FileReader();
+        if (file) {
+            // Check if the selected file type is either image or pdf
+            if (file.type.includes("image") || file.type === "application/pdf") setSelectedFile(file);
+            else alert("Please select an image or a PDF file.");
+        }
         reader.onload = function(event) {
             const base64EncodedString = event.target.result.split(",")[1];
             formikRef.current.setFieldValue("entryFile", base64EncodedString);
@@ -27297,7 +27305,7 @@ function RequestForm() {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.CssBaseline), {}, void 0, false, {
                 fileName: "src/components/Form.jsx",
-                lineNumber: 113,
+                lineNumber: 123,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Paper), {
@@ -27317,7 +27325,7 @@ function RequestForm() {
                         children: "Submit Request"
                     }, void 0, false, {
                         fileName: "src/components/Form.jsx",
-                        lineNumber: 125,
+                        lineNumber: 135,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.Formik), {
@@ -27351,7 +27359,7 @@ function RequestForm() {
                                                                 children: "Titel der Veranstaltung"
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 144,
+                                                                lineNumber: 154,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.OutlinedInput), {
@@ -27359,7 +27367,7 @@ function RequestForm() {
                                                                 ...field
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 145,
+                                                                lineNumber: 155,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.ErrorMessage), {
@@ -27370,23 +27378,23 @@ function RequestForm() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 149,
+                                                                lineNumber: 159,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "src/components/Form.jsx",
-                                                        lineNumber: 143,
+                                                        lineNumber: 153,
                                                         columnNumber: 23
                                                     }, this)
                                             }, void 0, false, {
                                                 fileName: "src/components/Form.jsx",
-                                                lineNumber: 141,
+                                                lineNumber: 151,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 140,
+                                            lineNumber: 150,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
@@ -27402,7 +27410,7 @@ function RequestForm() {
                                                                 children: "SubText"
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 163,
+                                                                lineNumber: 173,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.OutlinedInput), {
@@ -27410,7 +27418,7 @@ function RequestForm() {
                                                                 ...field
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 164,
+                                                                lineNumber: 174,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.ErrorMessage), {
@@ -27421,23 +27429,23 @@ function RequestForm() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 168,
+                                                                lineNumber: 178,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "src/components/Form.jsx",
-                                                        lineNumber: 162,
+                                                        lineNumber: 172,
                                                         columnNumber: 23
                                                     }, this)
                                             }, void 0, false, {
                                                 fileName: "src/components/Form.jsx",
-                                                lineNumber: 160,
+                                                lineNumber: 170,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 159,
+                                            lineNumber: 169,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
@@ -27454,7 +27462,7 @@ function RequestForm() {
                                                                 children: "Beschreibungs Text der Veranstaltung"
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 182,
+                                                                lineNumber: 192,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.OutlinedInput), {
@@ -27464,7 +27472,7 @@ function RequestForm() {
                                                                 ...field
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 185,
+                                                                lineNumber: 195,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.ErrorMessage), {
@@ -27475,23 +27483,23 @@ function RequestForm() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 191,
+                                                                lineNumber: 201,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "src/components/Form.jsx",
-                                                        lineNumber: 181,
+                                                        lineNumber: 191,
                                                         columnNumber: 23
                                                     }, this)
                                             }, void 0, false, {
                                                 fileName: "src/components/Form.jsx",
-                                                lineNumber: 179,
+                                                lineNumber: 189,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 178,
+                                            lineNumber: 188,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
@@ -27512,7 +27520,7 @@ function RequestForm() {
                                                                 children: "Organisator"
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 210,
+                                                                lineNumber: 220,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Select), {
@@ -27525,12 +27533,12 @@ function RequestForm() {
                                                                         children: org
                                                                     }, index, false, {
                                                                         fileName: "src/components/Form.jsx",
-                                                                        lineNumber: 220,
+                                                                        lineNumber: 230,
                                                                         columnNumber: 29
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 223,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.ErrorMessage), {
@@ -27541,23 +27549,23 @@ function RequestForm() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 225,
+                                                                lineNumber: 235,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "src/components/Form.jsx",
-                                                        lineNumber: 204,
+                                                        lineNumber: 214,
                                                         columnNumber: 23
                                                     }, this)
                                             }, void 0, false, {
                                                 fileName: "src/components/Form.jsx",
-                                                lineNumber: 202,
+                                                lineNumber: 212,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 201,
+                                            lineNumber: 211,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
@@ -27579,12 +27587,12 @@ function RequestForm() {
                                                                     }
                                                                 }, void 0, false, {
                                                                     fileName: "src/components/Form.jsx",
-                                                                    lineNumber: 239,
+                                                                    lineNumber: 249,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 238,
+                                                                lineNumber: 248,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.ErrorMessage), {
@@ -27595,23 +27603,23 @@ function RequestForm() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "src/components/Form.jsx",
-                                                                lineNumber: 249,
+                                                                lineNumber: 259,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "src/components/Form.jsx",
-                                                        lineNumber: 237,
+                                                        lineNumber: 247,
                                                         columnNumber: 23
                                                     }, this)
                                             }, void 0, false, {
                                                 fileName: "src/components/Form.jsx",
-                                                lineNumber: 235,
+                                                lineNumber: 245,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 234,
+                                            lineNumber: 244,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
@@ -27625,18 +27633,18 @@ function RequestForm() {
                                                         variant: "contained",
                                                         startIcon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cloudUploadDefault.default), {}, void 0, false, {
                                                             fileName: "src/components/Form.jsx",
-                                                            lineNumber: 264,
+                                                            lineNumber: 274,
                                                             columnNumber: 34
                                                         }, void 0),
                                                         children: "Upload file"
                                                     }, void 0, false, {
                                                         fileName: "src/components/Form.jsx",
-                                                        lineNumber: 261,
+                                                        lineNumber: 271,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "src/components/Form.jsx",
-                                                    lineNumber: 260,
+                                                    lineNumber: 270,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27648,19 +27656,29 @@ function RequestForm() {
                                                     onChange: handleFileSelect
                                                 }, void 0, false, {
                                                     fileName: "src/components/Form.jsx",
-                                                    lineNumber: 269,
+                                                    lineNumber: 279,
                                                     columnNumber: 19
+                                                }, this),
+                                                selectedFile && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                    children: [
+                                                        "Selected File: ",
+                                                        selectedFile.name
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/Form.jsx",
+                                                    lineNumber: 285,
+                                                    columnNumber: 36
                                                 }, this),
                                                 isUploading && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _circularProgressDefault.default), {}, void 0, false, {
                                                     fileName: "src/components/Form.jsx",
-                                                    lineNumber: 275,
+                                                    lineNumber: 286,
                                                     columnNumber: 35
                                                 }, this),
                                                 " "
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 259,
+                                            lineNumber: 269,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
@@ -27676,44 +27694,44 @@ function RequestForm() {
                                                 children: "Submit"
                                             }, void 0, false, {
                                                 fileName: "src/components/Form.jsx",
-                                                lineNumber: 283,
+                                                lineNumber: 293,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "src/components/Form.jsx",
-                                            lineNumber: 278,
+                                            lineNumber: 288,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/Form.jsx",
-                                    lineNumber: 139,
+                                    lineNumber: 149,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/Form.jsx",
-                                lineNumber: 138,
+                                lineNumber: 148,
                                 columnNumber: 13
                             }, this)
                     }, void 0, false, {
                         fileName: "src/components/Form.jsx",
-                        lineNumber: 128,
+                        lineNumber: 138,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/Form.jsx",
-                lineNumber: 114,
+                lineNumber: 124,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/Form.jsx",
-        lineNumber: 112,
+        lineNumber: 122,
         columnNumber: 5
     }, this);
 }
-_s(RequestForm, "jMwjymC6TNqUIQibX884Mzp0TTo=");
+_s(RequestForm, "SksAjAO5PN/4gZPpAqonvvfR2v4=");
 _c = RequestForm;
 var _c;
 $RefreshReg$(_c, "RequestForm");
@@ -35637,7 +35655,7 @@ var _generateUtilityClassesDefault = parcelHelpers.interopDefault(_generateUtili
 var _unstableTrapFocus = require("./Unstable_TrapFocus");
 var _unstableTrapFocusDefault = parcelHelpers.interopDefault(_unstableTrapFocus);
 
-},{"./colors":false,"./styles":false,"./utils":false,"./Accordion":false,"./AccordionActions":false,"./AccordionDetails":false,"./AccordionSummary":false,"./Alert":false,"./AlertTitle":false,"./AppBar":false,"./Autocomplete":false,"./Avatar":false,"./AvatarGroup":false,"./Backdrop":false,"./Badge":false,"./BottomNavigation":false,"./BottomNavigationAction":false,"./Box":false,"./Breadcrumbs":false,"./Button":"73csw","./ButtonBase":false,"./ButtonGroup":false,"./Card":false,"./CardActionArea":false,"./CardActions":false,"./CardContent":false,"./CardHeader":false,"./CardMedia":false,"./Checkbox":false,"./Chip":false,"./CircularProgress":false,"./ClickAwayListener":false,"./Collapse":false,"./Container":"75pQf","./CssBaseline":"eRYsJ","./darkScrollbar":false,"./Dialog":false,"./DialogActions":false,"./DialogContent":false,"./DialogContentText":false,"./DialogTitle":false,"./Divider":false,"./Drawer":false,"./Fab":false,"./Fade":false,"./FilledInput":false,"./FormControl":"2FZGq","./FormControlLabel":false,"./FormGroup":false,"./FormHelperText":false,"./FormLabel":false,"./Grid":"c17UE","./Unstable_Grid2":false,"./Grow":false,"./Hidden":false,"./Icon":false,"./IconButton":false,"./ImageList":false,"./ImageListItem":false,"./ImageListItemBar":false,"./Input":false,"./InputAdornment":false,"./InputBase":false,"./InputLabel":"3Ew25","./LinearProgress":false,"./Link":false,"./List":false,"./ListItem":false,"./ListItemAvatar":false,"./ListItemButton":false,"./ListItemIcon":false,"./ListItemSecondaryAction":false,"./ListItemText":false,"./ListSubheader":false,"./Menu":false,"./MenuItem":"6tZ4p","./MenuList":false,"./MobileStepper":false,"./Modal":false,"./NativeSelect":false,"./NoSsr":false,"./OutlinedInput":"jaFpb","./Pagination":false,"./PaginationItem":false,"./Paper":"6IiTP","./Popover":false,"./Popper":false,"./Portal":false,"./Radio":false,"./RadioGroup":false,"./Rating":false,"./ScopedCssBaseline":false,"./Select":"lFmVj","./Skeleton":false,"./Slide":false,"./Slider":false,"./Snackbar":false,"./SnackbarContent":false,"./SpeedDial":false,"./SpeedDialAction":false,"./SpeedDialIcon":false,"./Stack":false,"./Step":false,"./StepButton":false,"./StepConnector":false,"./StepContent":false,"./StepIcon":false,"./StepLabel":false,"./Stepper":false,"./SvgIcon":false,"./SwipeableDrawer":false,"./Switch":false,"./Tab":false,"./Table":false,"./TableBody":false,"./TableCell":false,"./TableContainer":false,"./TableFooter":false,"./TableHead":false,"./TablePagination":false,"./TableRow":false,"./TableSortLabel":false,"./Tabs":false,"./TabScrollButton":false,"./TextField":false,"./TextareaAutosize":false,"./ToggleButton":false,"./ToggleButtonGroup":false,"./Toolbar":false,"./Tooltip":false,"./Typography":"faxSz","./useMediaQuery":false,"./usePagination":false,"./useScrollTrigger":false,"./Zoom":false,"./useAutocomplete":false,"./GlobalStyles":false,"@mui/base/composeClasses":false,"./generateUtilityClass":false,"./generateUtilityClasses":false,"./Unstable_TrapFocus":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1lzai":[function(require,module,exports) {
+},{"./colors":false,"./styles":false,"./utils":false,"./Accordion":false,"./AccordionActions":false,"./AccordionDetails":false,"./AccordionSummary":false,"./Alert":false,"./AlertTitle":false,"./AppBar":false,"./Autocomplete":false,"./Avatar":false,"./AvatarGroup":false,"./Backdrop":false,"./Badge":false,"./BottomNavigation":false,"./BottomNavigationAction":false,"./Box":false,"./Breadcrumbs":false,"./Button":"73csw","./ButtonBase":false,"./ButtonGroup":false,"./Card":false,"./CardActionArea":false,"./CardActions":false,"./CardContent":false,"./CardHeader":false,"./CardMedia":false,"./Checkbox":false,"./Chip":false,"./CircularProgress":"gnTt5","./ClickAwayListener":false,"./Collapse":false,"./Container":"75pQf","./CssBaseline":"eRYsJ","./darkScrollbar":false,"./Dialog":false,"./DialogActions":false,"./DialogContent":false,"./DialogContentText":false,"./DialogTitle":false,"./Divider":false,"./Drawer":false,"./Fab":false,"./Fade":false,"./FilledInput":false,"./FormControl":"2FZGq","./FormControlLabel":false,"./FormGroup":false,"./FormHelperText":false,"./FormLabel":false,"./Grid":"c17UE","./Unstable_Grid2":false,"./Grow":false,"./Hidden":false,"./Icon":false,"./IconButton":false,"./ImageList":false,"./ImageListItem":false,"./ImageListItemBar":false,"./Input":false,"./InputAdornment":false,"./InputBase":false,"./InputLabel":"3Ew25","./LinearProgress":false,"./Link":false,"./List":false,"./ListItem":false,"./ListItemAvatar":false,"./ListItemButton":false,"./ListItemIcon":false,"./ListItemSecondaryAction":false,"./ListItemText":false,"./ListSubheader":false,"./Menu":false,"./MenuItem":"6tZ4p","./MenuList":false,"./MobileStepper":false,"./Modal":false,"./NativeSelect":false,"./NoSsr":false,"./OutlinedInput":"jaFpb","./Pagination":false,"./PaginationItem":false,"./Paper":"6IiTP","./Popover":false,"./Popper":false,"./Portal":false,"./Radio":false,"./RadioGroup":false,"./Rating":false,"./ScopedCssBaseline":false,"./Select":"lFmVj","./Skeleton":false,"./Slide":false,"./Slider":false,"./Snackbar":false,"./SnackbarContent":false,"./SpeedDial":false,"./SpeedDialAction":false,"./SpeedDialIcon":false,"./Stack":false,"./Step":false,"./StepButton":false,"./StepConnector":false,"./StepContent":false,"./StepIcon":false,"./StepLabel":false,"./Stepper":false,"./SvgIcon":false,"./SwipeableDrawer":false,"./Switch":false,"./Tab":false,"./Table":false,"./TableBody":false,"./TableCell":false,"./TableContainer":false,"./TableFooter":false,"./TableHead":false,"./TablePagination":false,"./TableRow":false,"./TableSortLabel":false,"./Tabs":false,"./TabScrollButton":false,"./TextField":false,"./TextareaAutosize":false,"./ToggleButton":false,"./ToggleButtonGroup":false,"./Toolbar":false,"./Tooltip":false,"./Typography":"faxSz","./useMediaQuery":false,"./usePagination":false,"./useScrollTrigger":false,"./Zoom":false,"./useAutocomplete":false,"./GlobalStyles":false,"@mui/base/composeClasses":false,"./generateUtilityClass":false,"./generateUtilityClasses":false,"./Unstable_TrapFocus":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1lzai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "THEME_ID", ()=>(0, _identifierDefault.default));
@@ -79163,7 +79181,107 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}]},["2o0aU","1xC6H","8rYH3"], "8rYH3", "parcelRequire0007")
+},{"7422ead32dcc1e6b":"786KC"}],"9IHhW":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$6d83 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$6d83.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FileUploader", ()=>FileUploader);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _material = require("@mui/material");
+var _cloudUpload = require("@mui/icons-material/CloudUpload");
+var _cloudUploadDefault = parcelHelpers.interopDefault(_cloudUpload);
+var _s = $RefreshSig$();
+function FileUploader() {
+    _s();
+    const [selectedFile, setSelectedFile] = (0, _react.useState)(null);
+    const [isUploading, setIsUploading] = (0, _react.useState)(false);
+    const handleFileSelect = (event)=>{
+        const file = event.target.files[0];
+        // Check if a file is selected
+        if (file) {
+            // Check if the selected file type is either image or pdf
+            if (file.type.includes("image") || file.type === "application/pdf") setSelectedFile(file);
+            else alert("Please select an image or a PDF file.");
+        }
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Grid), {
+        item: true,
+        xs: 12,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: "fileInput",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Button), {
+                    component: "span",
+                    variant: "contained",
+                    startIcon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cloudUploadDefault.default), {}, void 0, false, {
+                        fileName: "src/components/FileUploader.jsx",
+                        lineNumber: 28,
+                        columnNumber: 22
+                    }, void 0),
+                    children: "Upload file"
+                }, void 0, false, {
+                    fileName: "src/components/FileUploader.jsx",
+                    lineNumber: 25,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/FileUploader.jsx",
+                lineNumber: 24,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                id: "fileInput",
+                type: "file",
+                style: {
+                    display: "none"
+                },
+                onChange: handleFileSelect
+            }, void 0, false, {
+                fileName: "src/components/FileUploader.jsx",
+                lineNumber: 33,
+                columnNumber: 7
+            }, this),
+            selectedFile && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Selected File: ",
+                    selectedFile.name
+                ]
+            }, void 0, true, {
+                fileName: "src/components/FileUploader.jsx",
+                lineNumber: 39,
+                columnNumber: 24
+            }, this),
+            isUploading && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.CircularProgress), {}, void 0, false, {
+                fileName: "src/components/FileUploader.jsx",
+                lineNumber: 40,
+                columnNumber: 23
+            }, this),
+            " "
+        ]
+    }, void 0, true, {
+        fileName: "src/components/FileUploader.jsx",
+        lineNumber: 23,
+        columnNumber: 5
+    }, this);
+}
+_s(FileUploader, "qCdlC/e+hpb3y9KhKa5fotjuD/o=");
+_c = FileUploader;
+var _c;
+$RefreshReg$(_c, "FileUploader");
+
+  $parcel$ReactRefreshHelpers$6d83.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","@mui/material":"40376","@mui/icons-material/CloudUpload":"i74vB"}]},["2o0aU","1xC6H","8rYH3"], "8rYH3", "parcelRequire0007")
 
 </script>
   </body>

@@ -1,2 +1,6 @@
 import { RequestForm } from "./Form";
-export { RequestForm };
+import { FileUploader } from "./FileUploader";
+export {
+    RequestForm,
+    FileUploader
+};
