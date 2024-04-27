@@ -5,13 +5,10 @@
   "scripts": {
     "glogin": "clasp login",
     "glogout": "clasp logout",
-    "gcreat": "clasp create --rootDir ./build --title stuv_hhp_interface --parentId 1v_GgqPT5xvRvo04DeiUdkF2QbYA4aspZSoAnc7Mhv_E",
-    "gpush": "clasp push",
-    "gpull": "clasp pull",
-    "gstart": "clasp push --watch",
-    "pstart": "parcel ./src/index.html --dist-dir ./dist",
-    "start": "pstart gstart",
-    "build": "parcel build ./src/index.html --dist-dir ./build"
+    "create": "clasp create --rootDir ./src/server --title stuv_hhp_interface --parentId 1v_GgqPT5xvRvo04DeiUdkF2QbYA4aspZSoAnc7Mhv_E",
+    "pull": "clasp pull",
+    "start": "parcel ./src/client/index.html --dist-dir ./src/client/dist",
+    "deploy": "parcel build ./src/client/index.html --dist-dir ./src/server && clasp push"
   },
   "keywords": [],
   "author": "BM-Buschmann",
