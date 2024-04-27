@@ -1,26 +1,18 @@
 import React, { useState } from "react";
-import { Button, CircularProgress, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-export function FileUploader () {
+const UploadButton = ({ onFileSelect }) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
-    // Check if a file is selected
-    if (file) {
-      // Check if the selected file type is either image or pdf
-      if (file.type.includes("image") || file.type === "application/pdf") {
-        setSelectedFile(file);
-      } else {
-        alert("Please select an image or a PDF file.");
-      }
-    }
+    setSelectedFile(file);
+    onFileSelect(file);
   };
 
   return (
-    <Grid item xs={12}>
+    <>
       <label htmlFor="fileInput">
         <Button
           component="span"
@@ -37,7 +29,8 @@ export function FileUploader () {
         onChange={handleFileSelect}
       />
       {selectedFile && <p>Selected File: {selectedFile.name}</p>}
-      {isUploading && <CircularProgress />} {/* Render upload animation when uploading */}
-    </Grid>
+    </>
   );
 };
+
+export default UploadButton;

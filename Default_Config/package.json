@@ -1,12 +1,11 @@
 {
-  "name": "stuv_communitypostform",
+  "name": "stuv_appsscript_template",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "glogin": "clasp login",
     "glogout": "clasp logout",
-    "gcreat": "clasp create --rootDir ./apps-script --title 'stuv_communitypostform'",
+    "gcreat": "clasp create --rootDir ./apps-script --title 'stuv_appsscript_template'",
     "gpush": "clasp push",
     "gpull": "clasp pull",
     "gstart": "clasp push --watch",
