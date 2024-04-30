@@ -7,40 +7,15 @@ function onOpen() {
     .addToUi();
 }
 
-function showSidebar() {
-  var html = HtmlService.createHtmlOutputFromFile('Sidebar')
-      .setTitle('Custom Sidebar')
-      .setWidth(300);
-  SpreadsheetApp.getUi().showSidebar(html);
-}
-
-function addEntryToSheet() {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  
-  // Add your logic here to add the entry to Google Sheets
-  // Example:
-  var date = new Date();
-  var rowData = [date.toLocaleDateString(), date.toLocaleTimeString()];
-  sheet.appendRow(rowData);
-  
-  // Inform the user that the entry has been added
-  SpreadsheetApp.getUi().alert('Entry added to sheet.');
-}
-
-
 function openRgeDialog() {
-  var html = HtmlService.createHtmlOutputFromFile("index");
-  SpreadsheetApp.getUi().showModalDialog(html, "RGE Erstellen");
-}
+  var html = HtmlService
+  .createHtmlOutputFromFile("index")
+  .setWidth(827)
+  .setHeight(1169);
 
-
-const getSheets = () => SpreadsheetApp.getActive().getSheets();
-
-const getActiveSheetName = () => SpreadsheetApp.getActive().getSheetName();
-
-function addSheet(sheetTitle) {
-  SpreadsheetApp.getActive().insertSheet(sheetTitle);
-  return getSheetsData();
+  SpreadsheetApp
+  .getUi()
+  .showModalDialog(html, "RGE Erstellen");
 }
 
 function addEntry(entry) {
@@ -51,12 +26,26 @@ function addEntry(entry) {
   if (!sheet) {
     // If sheet doesn't exist, create a new one
     sheet = ss.insertSheet(sheetName);
-    sheet.appendRow(["Datum", "Quartal", "Kapitel", "Betrag", "Rechnungsdatum", "Zahlungsdatum", "Rechnungsbezeichnung", "SotaxBuchungsnummer", "Rechnungserklaerung"]);
+    sheet.appendRow([
+      "Datum",
+      "Quartal",
+      "Kapitel",
+      "Betrag",
+      "Rechnungsdatum",
+      "Zahlungsdatum",
+      "Rechnungsbezeichnung",
+      "SotaxBuchungsnummer",
+      "Rechnungserklaerung",
+    ]);
   }
-  
+
   // Get current date
   var currentDate = new Date();
-  var formattedDate = Utilities.formatDate(currentDate, SpreadsheetApp.getActive().getSpreadsheetTimeZone(), "dd-MM-yyyy");
+  var formattedDate = Utilities.formatDate(
+    currentDate,
+    SpreadsheetApp.getActive().getSpreadsheetTimeZone(),
+    "dd-MM-yyyy"
+  );
 
   // Calculate the quarter based on the "Rechnungsdatum"
   var rechnungsDate = new Date(entry["Rechnungsdatum"]);
@@ -76,9 +65,15 @@ function addEntry(entry) {
     entry["Zahlungsdatum"],
     entry["Rechnungsbezeichnung"],
     entry["SotaxBuchungsnummer"],
-    entry["Rechnungserklaerung"]
+    entry["Rechnungserklaerung"],
   ];
   sheet.appendRow(values);
+}
+
+function getCommonInfo(){
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var settingsSheet = ss.getSheetByName("Settings");
+
 }
 
 function getChapters(account) {
@@ -98,57 +93,75 @@ function getChapters(account) {
     }
   }
 
-  return chapters.length > 0 ? chapters.flat() : []; // Return a flattened array of chapters if found, otherwise return an empty array
+  var jsonData = { chapters: chapters.flat() }; // Convert the chapters array to an object with the "chapters" key
+
+  var jsonString = JSON.stringify(jsonData);
+
+  return jsonString;
 }
 
 function getAccounts() {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var settingsSheet = ss.getSheetByName("Settings");
-    var lastRow = settingsSheet.getLastRow();
-    var accountsColumn = settingsSheet.getRange("A2:A" + lastRow).getValues();
-    var uniqueAccounts = new Set(accountsColumn.flat()); // Get unique values from the accountsColumn array
-    var accountsArray = Array.from(uniqueAccounts); // Convert Set to array
-    var accounts = accountsArray.filter(function(account) { return account }); // Filter out any empty or undefined values
-  
-    // Convert to JSON object
-    var accountsJSON = {};
-    accounts.forEach(function(account) {
-      accountsJSON[account] = getChapters(account);
-    });
-    return accountsJSON;
-}
+  // Access the spreadsheet and the sheet named "Settings"
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Settings");
 
-function testGetAccountGetChapters() {
-  // Test getAccounts function
-  var accountsObject = getAccounts();
-  Logger.log("Available Accounts:");
-  Logger.log(accountsObject);
+  // Get the data range for column A
+  var dataRange = sheet.getRange("A:A");
 
-  // Test getChapters function with a selected account
-  var accountsArray = Object.keys(accountsObject);
-  if (accountsArray.length > 0) {
-    var selectedAccount = accountsArray[0]; // Select the first account from the list
-    var chaptersList = accountsObject[selectedAccount];
-    Logger.log("Chapters for selected Account (" + selectedAccount + "):");
-    Logger.log(chaptersList);
-  } else {
-    Logger.log("No Accounts available to select.");
+  // Get the values in column A
+  var values = dataRange.getValues();
+
+  // Define an array to store the accounts
+  var accountsData = [];
+
+  // Iterate through each row starting from the second row (assuming the first row is header)
+  for (var i = 1; i < values.length; i++) {
+    var account = values[i][0];
+
+    // If the cell is empty, skip to the next row
+    if (!account) continue;
+
+    // Add the account to the array
+    accountsData.push(account);
   }
+
+  // Convert the accountsData array to an object with the "accounts" key
+  var jsonData = { accounts: accountsData };
+
+  // Convert the jsonData object to a JSON string
+  var jsonString = JSON.stringify(jsonData);
+
+  // Return the JSON string
+  return jsonString;
 }
 
-function testAddEntry() {
-  var sampleEntry = {
-    "Posten": "Schulungen",
-    "Datum": "2024-04-27",
-    "Quartal": "Q2",
-    "Kapitel": "Training",
-    "Betrag": 500,
-    "Rechnungsdatum": "2024-04-27",
-    "Zahlungsdatum": "2024-05-10",
-    "Rechnungsbezeichnung": "Training Workshop",
-    "SotaxBuchungsnummer": "12345",
-    "Rechnungserklaerung": "Training costs for workshop"
-  };
 
-  addEntry(sampleEntry);
+function getBookingData() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var settingsSheet = ss.getSheetByName("Settings");
+  var lastRow = settingsSheet.getLastRow();
+  var accountColumn = settingsSheet.getRange("A2:A" + lastRow).getValues();
+  var chapterColumn = settingsSheet.getRange("B2:B" + lastRow).getValues();
+
+  var accountsData = [];
+
+  // Iterate through each row starting from the second row (assuming the first row is header)
+  for (var i = 0; i < accountColumn.length; i++) {
+    var account = accountColumn[i][0];
+    var chapterString = chapterColumn[i][0];
+    var chapterArray = chapterString.split(";");
+
+    // If the cell is empty, skip to the next row
+    if (!account) continue;
+
+    // Add account and chapters to the accountsData array
+    accountsData.push({ account: account, chapters: chapterArray });
+  }
+
+  // Convert the accountsData array to a JSON string
+  var jsonString = JSON.stringify({ data: accountsData });
+
+  Logger.log(jsonString);
+  // Return the JSON string
+  return jsonString;
 }

@@ -7,8 +7,10 @@
     "glogout": "clasp logout",
     "create": "clasp create --rootDir ./src/server --title stuv_hhp_interface --parentId 1v_GgqPT5xvRvo04DeiUdkF2QbYA4aspZSoAnc7Mhv_E",
     "pull": "clasp pull",
-    "start": "parcel ./src/client/index.html --dist-dir ./src/client/dist",
-    "deploy": "parcel build ./src/client/index.html --dist-dir ./src/server && clasp push"
+    "start": "parcel ./src/client/index.html --dist-dir ./dist",
+    "build": "parcel build ./src/client/index.html --dist-dir ./src/server",
+    "pushToGoogle": "clasp push",
+    "deploy": "npm run build && npm run pushToGoogle"
   },
   "keywords": [],
   "author": "BM-Buschmann",
@@ -22,13 +24,21 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
-    "formik": "^2.4.6",
+    "@mui/x-date-pickers": "^7.2.0",
+    "dayjs": "^1.11.10",
+    "formik": "^2.4.5",
     "gas-client": "^1.1.1",
+    "i18next": "^23.11.3",
+    "install": "^0.13.0",
+    "npm": "^10.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.1",
     "styled-components": "^6.1.8",
+    "uninstall": "^0.0.0",
     "yup": "^1.4.0"
   }
 }

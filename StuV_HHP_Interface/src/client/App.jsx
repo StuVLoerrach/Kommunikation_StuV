@@ -1,4 +1,4 @@
-import InvoiceForm from "./components/InvoiceForm";
+import InvoiceForm from "./components/Pages/InvoiceForm";
 
 export function App() {
   return (

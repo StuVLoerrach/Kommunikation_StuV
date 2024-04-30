@@ -1,0 +1,27 @@
+{
+    "en": {
+      "invoiceNumber": "Invoice number",
+      "invoiceDate": "Invoice date",
+      "invoiceIssuer": "Invoice issuer",
+      "account": "Account",
+      "subLedger": "Sub-ledgers",
+      "required": "is required",
+      "invalid_date": "Invalid date",
+      "none": "None",
+      "fetching_error": "Error fetching data",
+      "toggle_language": "Englisch"
+    },
+    "de": {
+      "invoiceNumber": "Rechnungsnummer",
+      "invoiceDate": "Rechnungsdatum",
+      "invoiceIssuer": "Rechnungssteller",
+      "account": "Kapitel",
+      "subLedger": "Titel",
+      "required": "ist erforderlich",
+      "invalid_date": "Ungültiges Datum",
+      "none": "Keine",
+      "fetching_error": "Fehler beim Abrufen der Daten",
+      "toggle_language": "Deutsch"
+    }
+  }
+  
